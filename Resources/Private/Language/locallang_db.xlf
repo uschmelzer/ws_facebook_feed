@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2014-06-02T11:48:25Z" product-name="news">
+        <header/>
+        <body>
+			<trans-unit id="wizicon.facebook.title" xml:space="preserve">
+				<source>Facebook</source>
+			</trans-unit>
+			<trans-unit id="wizicon.facebook.description" xml:space="preserve">
+				<source>This plugin loads a facebook feed and displays the recent entries</source>
+			</trans-unit>
+            <trans-unit id="task.feed.title" xml:space="preserve">
+				<source>Facebook</source>
+			</trans-unit>
+			<trans-unit id="task.feed.wsFacebookFeedAppId" xml:space="preserve">
+				<source>App ID</source>
+			</trans-unit>
+			<trans-unit id="task.feed.wsFacebookFeedSecret" xml:space="preserve">
+				<source>Secret</source>
+			</trans-unit>
+			<trans-unit id="task.feed.wsFacebookFeedPageId" xml:space="preserve">
+				<source>Page Id</source>
+			</trans-unit>
+			<trans-unit id="task.feed.wsFacebookFeedLocalFolder" xml:space="preserve">
+				<source>Local folder for feed</source>
+			</trans-unit>
+			<trans-unit id="task.feed.wsFacebookFeedLocalFile" xml:space="preserve">
+				<source>Local file for feed</source>
+			</trans-unit>
+			<trans-unit id="plugin.facebook" xml:space="preserve">
+				<source>Facebook Feed</source>
+			</trans-unit>
+			<trans-unit id="plugin.facebook.flexform.sheets.settings" xml:space="preserve">
+				<source>Settings</source>
+			</trans-unit>
+			<trans-unit id="plugin.facebook.flexform.sheets.settings.override.feed" xml:space="preserve">
+				<source>Feed file</source>
+			</trans-unit>
+			<trans-unit id="plugin.facebook.flexform.sheets.settings.override.pageId" xml:space="preserve">
+				<source>Page ID</source>
+			</trans-unit>
+			<trans-unit id="plugin.facebook.flexform.sheets.settings.override.pageName" xml:space="preserve">
+				<source>Page Name</source>
+			</trans-unit>
+			<trans-unit id="plugin.facebook.flexform.sheets.settings.override.maxEntries" xml:space="preserve">
+				<source>Number of entries to display</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

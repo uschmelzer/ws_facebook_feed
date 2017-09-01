@@ -1,0 +1,15 @@
+{namespace vhs=FluidTYPO3\Vhs\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+
+	<h1>FACEBOOK FEED SHOW TEMPLATE</h1>
+
+	<f:for each="{feed}" as="feedEntry">
+		<div style="border:1px solid red;">
+			<f:render partial="{vhs:format.case(string:feedEntry.type,case:'ucfirst')}" arguments="{feedEntry:feedEntry}" />
+		</div>
+	</f:for>
+
+</f:section>

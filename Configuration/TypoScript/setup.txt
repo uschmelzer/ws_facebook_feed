@@ -1,0 +1,19 @@
+plugin.tx_wsfacebookfeed {
+	view {
+		templateRootPaths {
+			10 = {$plugin.tx_wsfacebookfeed.view.templateRootPath}
+		}
+		partialRootPaths {
+			10 = {$plugin.tx_wsfacebookfeed.view.partialRootPath}
+		}
+		layoutRootPaths {
+			10 = {$plugin.tx_wsfacebookfeed.view.layoutRootPath}
+		}
+	}
+	settings {
+		feed = {$plugin.tx_wsfacebookfeed.settings.feed}
+		pageId = {$plugin.tx_wsfacebookfeed.settings.pageId}
+		pageName = {$plugin.tx_wsfacebookfeed.settings.pageName}
+		maxEntries = {$plugin.tx_wsfacebookfeed.settings.maxEntries}
+	}
+}

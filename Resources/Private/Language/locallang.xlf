@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2014-06-02T11:47:10Z" product-name="news">
+        <header/>
+        <body>
+            <trans-unit id="backend.title" xml:space="preserve">
+				<source>Facebook Feed</source>
+			</trans-unit>
+			<trans-unit id="backend.description" xml:space="preserve">
+				<source>Just enter your app credentials an hit "authenticate". A new window will open where you will be directed to your access token. Use this access token in the scheduler task to download your facebook feed.</source>
+			</trans-unit>
+			<trans-unit id="backend.form.label.appId" xml:space="preserve">
+				<source>Application ID</source>
+			</trans-unit>
+			<trans-unit id="backend.form.label.appSecret" xml:space="preserve">
+				<source>Application Secret</source>
+			</trans-unit>
+			<trans-unit id="backend.form.submit" xml:space="preserve">
+				<source>Authenticate</source>
+			</trans-unit>
+			<trans-unit id="other-link">
+            	<source>More Posts</source>
+             </trans-unit>
+             <trans-unit id="all-link">
+                <source>All Posts</source>
+             </trans-unit>
+             <trans-unit id="post-link">
+                <source>Show Post</source>
+             </trans-unit>
+             <trans-unit id="title-facebook">
+                <source>News from Frigel on Facebook</source>
+             </trans-unit>
+        </body>
+    </file>
+</xliff>

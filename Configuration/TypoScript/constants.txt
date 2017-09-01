@@ -1,0 +1,20 @@
+plugin.tx_wsfacebookfeed {
+	view {
+		# cat=plugin.tx_wsfacebookfeed/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:ws_facebook_feed/Resources/Private/Templates/
+		# cat=plugin.tx_wsfacebookfeed/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:ws_facebook_feed/Resources/Private/Partials/
+		# cat=plugin.tx_wsfacebookfeed/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:ws_facebook_feed/Resources/Private/Layouts/
+	}
+	settings {
+		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=The local file where the feed is saved
+		feed =
+		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=App id from the facebook app
+		pageId = 0
+		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=Page name of the feed
+		pageName =
+		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=Number of entries to display
+		maxEntries = 0
+	}
+}

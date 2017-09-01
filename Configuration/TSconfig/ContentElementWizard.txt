@@ -1,0 +1,13 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+	elements {
+		facebook {
+			iconIdentifier = ext-wsfacebook-wizard-icon
+			title = LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:wizicon.facebook.title
+			description = LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:wizicon.facebook.description
+			tt_content_defValues {
+				CType = list
+				list_type = wsfacebook_facebook
+			}
+		}
+	}
+}
