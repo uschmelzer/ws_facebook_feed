@@ -104,10 +104,6 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function showAction() {
 
-        $maxEntries = $this->settings['maxEntries'];
-        $pageId = $this->settings['pageId'];
-        $pageName = $this->settings['pageName'];
-        $feed = $this->settings['feed'];
 
         // OVERRIDE WITH SETTINGS FROM THE FLEXFORM
         if (isset($this->settings['override']['maxEntries']) && strlen($this->settings['override']['maxEntries'])) {
@@ -122,6 +118,23 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         if (isset($this->settings['override']['feed']) && strlen($this->settings['override']['feed'])) {
             $this->settings['feed'] = $this->settings['override']['feed'];
         }
+
+        // schmelzer, 2017-09-01
+        // Moved after the override, so the override values don't get ignored
+        $maxEntries = $this->settings['maxEntries'];
+        $pageId = $this->settings['pageId'];
+        $pageName = $this->settings['pageName'];
+
+
+        // schmelzer, 2017-09-01
+        // Make paths relative to typo3 installation
+        // https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/GlobalValues/Constants/Index.html
+        // PATH_site = /absolute/path/to/documentroot/
+        $feed = PATH_site . DIRECTORY_SEPARATOR . $this->settings['feed'];
+
+        // Clean up duplicate DIRECTORY_SEPARATOR
+        $feed = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $feed);
+
 
         if (file_exists($feed)) {
 
@@ -184,7 +197,9 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 'error' => array(
                     'severity' => 'error',
                     'code' => 100,
-                    'message' => 'The feed file was not found in the specific path.'
+                    // schmelzer
+                    //'message' => 'The feed file was not found in the specific path.'
+                    'message' => 'The feed file was not found in the specific path: "'. $feed .'"'
                 )
             ));
 
