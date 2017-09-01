@@ -10,9 +10,9 @@ plugin.tx_wsfacebookfeed {
 	settings {
 		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=The local file where the feed is saved
 		feed =
-		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=App id from the facebook app
+		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=Facebook app: App id
 		pageId = 0
-		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=Page name of the feed
+		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=Facebook page: Name or id of the page
 		pageName =
 		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=Number of entries to display
 		maxEntries = 0

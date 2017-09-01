@@ -17,12 +17,13 @@ $EM_CONF[$_EXTKEY] = array(
     'modify_tables' => '',
     'clearCacheOnLoad' => 0,
     'lockType' => '',
-    'version' => '1.0.1',
+    'version' => '1.0.2',
     'constraints' => array(
         'depends' => array(
             'extbase' => '7.6.0-8.7.0',
             'fluid' => '7.6.0-8.7.0',
             'typo3' => '7.6.0-8.7.0',
+            'vhs' => '',
         ),
         'conflicts' => array(),
         'suggests' => array(),

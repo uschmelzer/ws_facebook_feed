@@ -1,0 +1,21 @@
+<f:if condition="{feedEntry.name}">
+    <f:then>
+
+        <h3>
+            {feedEntry.name}
+            <small>
+                &nbsp;<f:format.date date="{feedEntry.date}" format="d.m.Y, H:i"/>
+            </small>
+        </h3>
+
+    </f:then>
+    <f:else>
+
+        <h3>
+            <small>
+                <f:format.date date="{feedEntry.date}" format="d.m.Y, H:i"/>
+            </small>
+        </h3>
+
+    </f:else>
+</f:if>

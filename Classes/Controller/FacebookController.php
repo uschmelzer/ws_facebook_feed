@@ -1,4 +1,5 @@
 <?php
+
 namespace Webstobe\WsFacebookFeed\Controller;
 
 /***************************************************************
@@ -31,7 +32,8 @@ namespace Webstobe\WsFacebookFeed\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+{
 
     /**
      * Handles a request. The result output is returned by altering the given response.
@@ -41,7 +43,8 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      * @return void
      */
-    public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
+    public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response)
+    {
         try {
             parent::processRequest($request, $response);
         } catch (\TYPO3\CMS\Extbase\Property\Exception $exception) {
@@ -54,7 +57,8 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      *
      * @return void
      */
-    public function initializeAction() {
+    public function initializeAction()
+    {
 
         // OVERRIDE WITH SETTINGS FROM THE FLEXFORM
         if (isset($this->settings['override']['feed']) && strlen($this->settings['override']['feed'])) {
@@ -81,7 +85,8 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      *
      * @return void
      */
-    public function infoAction($error = NULL) {
+    public function infoAction($error = NULL)
+    {
 
         if (is_array($this->request->getArguments()) && array_key_exists('error', $this->request->getArguments())) {
             $error = $this->request->getArgument('error');
@@ -102,7 +107,8 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      *
      * @return void
      */
-    public function showAction() {
+    public function showAction()
+    {
 
 
         // OVERRIDE WITH SETTINGS FROM THE FLEXFORM
@@ -133,7 +139,7 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $feed = PATH_site . DIRECTORY_SEPARATOR . $this->settings['feed'];
 
         // Clean up duplicate DIRECTORY_SEPARATOR
-        $feed = str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $feed);
+        $feed = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $feed);
 
 
         if (file_exists($feed)) {
@@ -146,7 +152,22 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 foreach ($feedComplete->data as $feedEntry) {
 
-                    $feedEntryLink = 'https://www.facebook.com/' . $pageName . '/posts/' . str_replace($pageId . '_', '', $feedEntry->id);
+                    // schmelzer
+                    // How to get the Post id
+                    // 1. json contains "id" and "object_id"
+                    // "id": "558934427458938_558939047458476",
+                    // "object_id": "558939034125144",
+                    // 2. "object_id" isn't always present, while "id" is.
+                    // 3. "id" contains the facebook page id and the post id
+                    // 4. Remove the facebook page id, to get the post id
+                    $feedEntryPostId = str_replace($pageName . '_', '', $feedEntry->id);
+
+                    // schmelzer
+                    // How to get the Post URL for "View on facebook" link
+                    //                          FB Page Id            Post id
+                    // https://www.facebook.com/558934427458938/posts/1604442319574805
+                    $urlViewOnFacebook = 'https://www.facebook.com/' . $pageName . '/posts/' . $feedEntryPostId;
+
                     $feedEntryImage = '';
                     $feedEntryMessage = '';
 
@@ -169,11 +190,12 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         default:
 
                             $feedArray[] = array(
+                                'urlViewOnFacebook' => $urlViewOnFacebook,
                                 'id' => $feedEntry->id,
                                 'type' => $feedEntry->type,
                                 'name' => $feedEntry->name,
                                 'text' => $feedEntryMessage,
-                                'link' => $feedEntryLink,
+                                'link' => $feedEntry->link,
                                 'image' => $feedEntryImage,
                                 'date' => new \DateTime($feedEntry->created_time)
                             );
@@ -198,8 +220,8 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     'severity' => 'error',
                     'code' => 100,
                     // schmelzer
-                    //'message' => 'The feed file was not found in the specific path.'
-                    'message' => 'The feed file was not found in the specific path: "'. $feed .'"'
+                    'message' => 'The feed file was not found in the specific path.'
+                    //'message' => 'The feed file was not found in the specific path: "'. $feed .'"'
                 )
             ));
 
