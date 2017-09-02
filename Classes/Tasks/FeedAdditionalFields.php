@@ -35,7 +35,8 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class FeedAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class FeedAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface
+{
 
     /**
      * This method is used to define new fields for adding or editing a task
@@ -52,19 +53,20 @@ class FeedAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFieldProvid
      *                                        ['cshKey']        => The CSH key for the field
      *                                        ['cshLabel']    => The code of the CSH label
      */
-    public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject) {
+    public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject)
+    {
 
         $additionalFields = array();
 
-        // APP ID
-        $fieldID = 'wsFacebookFeedAppId';
-        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedAppId . '">';
-        $additionalFields[$fieldID] = array(
-            'code' => $fieldHtml,
-            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedAppId',
-            'cshKey' => '',
-            'cshLabel' => $fieldID
-        );
+        //        // APP ID
+        //        $fieldID = 'wsFacebookFeedAppId';
+        //        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedAppId . '">';
+        //        $additionalFields[$fieldID] = array(
+        //            'code' => $fieldHtml,
+        //            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedAppId',
+        //            'cshKey' => '',
+        //            'cshLabel' => $fieldID
+        //        );
 
         // SECRET
         $fieldID = 'wsFacebookFeedSecret';
@@ -76,35 +78,35 @@ class FeedAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFieldProvid
             'cshLabel' => $fieldID
         );
 
-        // SECRET
-        $fieldID = 'wsFacebookFeedPageId';
-        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedPageId . '">';
-        $additionalFields[$fieldID] = array(
-            'code' => $fieldHtml,
-            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedPageId',
-            'cshKey' => '',
-            'cshLabel' => $fieldID
-        );
-
-        // LOCAL FOLDER
-        $fieldID = 'wsFacebookFeedLocalFolder';
-        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedLocalFolder . '">';
-        $additionalFields[$fieldID] = array(
-            'code' => $fieldHtml,
-            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedLocalFolder',
-            'cshKey' => '',
-            'cshLabel' => $fieldID
-        );
-
-        // LOCAL FEED FILE
-        $fieldID = 'wsFacebookFeedLocalFile';
-        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedLocalFile . '">';
-        $additionalFields[$fieldID] = array(
-            'code' => $fieldHtml,
-            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedLocalFile',
-            'cshKey' => '',
-            'cshLabel' => $fieldID
-        );
+        //        // FB Page Id
+        //        $fieldID = 'wsFacebookFeedPageId';
+        //        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedPageId . '">';
+        //        $additionalFields[$fieldID] = array(
+        //            'code' => $fieldHtml,
+        //            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedPageId',
+        //            'cshKey' => '',
+        //            'cshLabel' => $fieldID
+        //        );
+        //
+        //        // LOCAL FOLDER
+        //        $fieldID = 'wsFacebookFeedLocalFolder';
+        //        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedLocalFolder . '">';
+        //        $additionalFields[$fieldID] = array(
+        //            'code' => $fieldHtml,
+        //            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedLocalFolder',
+        //            'cshKey' => '',
+        //            'cshLabel' => $fieldID
+        //        );
+        //
+        //        // LOCAL FEED FILE
+        //        $fieldID = 'wsFacebookFeedLocalFile';
+        //        $fieldHtml = '<input type="text" name="tx_scheduler[' . $fieldID . ']" id="' . $fieldID . '" size="50" maxlength="255" value="' . $task->wsFacebookFeedLocalFile . '">';
+        //        $additionalFields[$fieldID] = array(
+        //            'code' => $fieldHtml,
+        //            'label' => 'LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:task.feed.wsFacebookFeedLocalFile',
+        //            'cshKey' => '',
+        //            'cshLabel' => $fieldID
+        //        );
 
         return $additionalFields;
 
@@ -118,33 +120,34 @@ class FeedAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFieldProvid
      * @param    \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject : reference to the calling object (Scheduler's BE module)
      * @return    boolean                    True if validation was ok (or selected class is not relevant), false otherwise
      */
-    public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject) {
+    public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject)
+    {
         $result = TRUE;
 
-        if (strlen(trim($submittedData['wsFacebookFeedAppId'])) === 0) {
-            $parentObject->addMessage('No app id entered.', FlashMessage::ERROR);
-            $result = FALSE;
-        }
+        //        if (strlen(trim($submittedData['wsFacebookFeedAppId'])) === 0) {
+        //            $parentObject->addMessage('No app id entered.', FlashMessage::ERROR);
+        //            $result = FALSE;
+        //        }
 
         if (strlen(trim($submittedData['wsFacebookFeedSecret'])) === 0) {
             $parentObject->addMessage('No wsFacebookFeedSecret entered.', FlashMessage::ERROR);
             $result = FALSE;
         }
 
-        if (strlen(trim($submittedData['wsFacebookFeedPageId'])) === 0) {
-            $parentObject->addMessage('No page id entered.', FlashMessage::ERROR);
-            $result = FALSE;
-        }
-
-        if (strlen(trim($submittedData['wsFacebookFeedLocalFolder'])) === 0) {
-            $parentObject->addMessage('No local folder entered.', FlashMessage::ERROR);
-            $result = FALSE;
-        }
-
-        if (strlen(trim($submittedData['wsFacebookFeedLocalFile'])) === 0) {
-            $parentObject->addMessage('facebook: No local file entered.', FlashMessage::ERROR);
-            $result = FALSE;
-        }
+        //        if (strlen(trim($submittedData['wsFacebookFeedPageId'])) === 0) {
+        //            $parentObject->addMessage('No page id entered.', FlashMessage::ERROR);
+        //            $result = FALSE;
+        //        }
+        //
+        //        if (strlen(trim($submittedData['wsFacebookFeedLocalFolder'])) === 0) {
+        //            $parentObject->addMessage('No local folder entered.', FlashMessage::ERROR);
+        //            $result = FALSE;
+        //        }
+        //
+        //        if (strlen(trim($submittedData['wsFacebookFeedLocalFile'])) === 0) {
+        //            $parentObject->addMessage('facebook: No local file entered.', FlashMessage::ERROR);
+        //            $result = FALSE;
+        //        }
 
         return $result;
     }
@@ -157,12 +160,13 @@ class FeedAdditionalFields implements \TYPO3\CMS\Scheduler\AdditionalFieldProvid
      * @param    \TYPO3\CMS\Scheduler\Task\AbstractTask $task : reference to the current task object
      * @return    void
      */
-    public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-        $task->wsFacebookFeedAppId = $submittedData['wsFacebookFeedAppId'];
+    public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task)
+    {
+        //$task->wsFacebookFeedAppId = $submittedData['wsFacebookFeedAppId'];
         $task->wsFacebookFeedSecret = $submittedData['wsFacebookFeedSecret'];
-        $task->wsFacebookFeedPageId = $submittedData['wsFacebookFeedPageId'];
-        $task->wsFacebookFeedLocalFolder = $submittedData['wsFacebookFeedLocalFolder'];
-        $task->wsFacebookFeedLocalFile = $submittedData['wsFacebookFeedLocalFile'];
+        //$task->wsFacebookFeedPageId = $submittedData['wsFacebookFeedPageId'];
+        //$task->wsFacebookFeedLocalFolder = $submittedData['wsFacebookFeedLocalFolder'];
+        //$task->wsFacebookFeedLocalFile = $submittedData['wsFacebookFeedLocalFile'];
     }
 
 }

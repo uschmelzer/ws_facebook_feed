@@ -61,15 +61,16 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
 
         // OVERRIDE WITH SETTINGS FROM THE FLEXFORM
-        if (isset($this->settings['override']['feed']) && strlen($this->settings['override']['feed'])) {
-            $this->settings['feed'] = $this->settings['override']['feed'];
-        }
-        if (isset($this->settings['override']['pageId']) && strlen($this->settings['override']['pageId'])) {
-            $this->settings['pageId'] = $this->settings['override']['pageId'];
-        }
-        if (isset($this->settings['override']['pageName']) && strlen($this->settings['override']['pageName'])) {
-            $this->settings['pageName'] = $this->settings['override']['pageName'];
-        }
+        //    if (isset($this->settings['override']['feed']) && strlen($this->settings['override']['feed'])) {
+        //        $this->settings['feed'] = $this->settings['override']['feed'];
+        //    }
+        //    if (isset($this->settings['override']['pageId']) && strlen($this->settings['override']['pageId'])) {
+        //        $this->settings['pageId'] = $this->settings['override']['pageId'];
+        //    }
+        //    if (isset($this->settings['override']['pageName']) && strlen($this->settings['override']['pageName'])) {
+        //        $this->settings['pageName'] = $this->settings['override']['pageName'];
+        //    }
+
         if (isset($this->settings['override']['maxEntries']) && strlen($this->settings['override']['maxEntries'])) {
             $this->settings['maxEntries'] = $this->settings['override']['maxEntries'];
         }
@@ -112,18 +113,20 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
         // OVERRIDE WITH SETTINGS FROM THE FLEXFORM
+
         if (isset($this->settings['override']['maxEntries']) && strlen($this->settings['override']['maxEntries'])) {
             $this->settings['maxEntries'] = $this->settings['override']['maxEntries'];
         }
-        if (isset($this->settings['override']['pageId']) && intval($this->settings['override']['pageId']) !== 0) {
-            $this->settings['pageId'] = $this->settings['override']['pageId'];
-        }
-        if (isset($this->settings['override']['pageName']) && strlen($this->settings['override']['pageName'])) {
-            $this->settings['pageName'] = $this->settings['override']['pageName'];
-        }
-        if (isset($this->settings['override']['feed']) && strlen($this->settings['override']['feed'])) {
-            $this->settings['feed'] = $this->settings['override']['feed'];
-        }
+
+        //    if (isset($this->settings['override']['pageId']) && intval($this->settings['override']['pageId']) !== 0) {
+        //        $this->settings['pageId'] = $this->settings['override']['pageId'];
+        //    }
+        //    if (isset($this->settings['override']['pageName']) && strlen($this->settings['override']['pageName'])) {
+        //        $this->settings['pageName'] = $this->settings['override']['pageName'];
+        //    }
+        //    if (isset($this->settings['override']['feed']) && strlen($this->settings['override']['feed'])) {
+        //        $this->settings['feed'] = $this->settings['override']['feed'];
+        //    }
 
         // schmelzer, 2017-09-01
         // Moved after the override, so the override values don't get ignored
@@ -132,19 +135,25 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $pageName = $this->settings['pageName'];
 
 
-        // schmelzer, 2017-09-01
-        // Make paths relative to typo3 installation
+        // schmelzer, 2017-09-02
+        // Use a temp dir, not a custom dir
+        // Still, it is stupid, to have to set the path here in the task and in the front end
         // https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/GlobalValues/Constants/Index.html
-        // PATH_site = /absolute/path/to/documentroot/
-        $feed = PATH_site . DIRECTORY_SEPARATOR . $this->settings['feed'];
 
-        // Clean up duplicate DIRECTORY_SEPARATOR
-        $feed = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $feed);
+        // Set absolute paths
+        $localFolder = PATH_site . $this->settings['feedDirPath'];
+        $localFile = $localFolder . DIRECTORY_SEPARATOR . $this->settings['feedFilename'];
 
 
-        if (file_exists($feed)) {
+        // Clean up duplicate slashes
+        $localFolder = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localFolder);
+        $localFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localFile);
 
-            $feedComplete = json_decode(file_get_contents($feed));
+
+
+        if (file_exists($localFile)) {
+
+            $feedComplete = json_decode(file_get_contents($localFile));
             $feedArray = array();
             $feedIterator = 1;
 
@@ -221,7 +230,7 @@ class FacebookController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     'code' => 100,
                     // schmelzer
                     'message' => 'The feed file was not found in the specific path.'
-                    //'message' => 'The feed file was not found in the specific path: "'. $feed .'"'
+                    //'message' => 'The feed file was not found in the specific path: "'. $localFile .'"'
                 )
             ));
 

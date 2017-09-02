@@ -2,15 +2,20 @@
 
 namespace Webstobe\WsFacebookFeed\Tasks;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 
 class Feed extends \TYPO3\CMS\Scheduler\Task\AbstractTask
 {
 
-    public $wsFacebookFeedAppId = NULL;
+    //public $wsFacebookFeedAppId = NULL;
     public $wsFacebookFeedSecret = NULL;
-    public $wsFacebookFeedPageId = NULL;
-    public $wsFacebookFeedLocalFolder = NULL;
-    public $wsFacebookFeedLocalFile = NULL;
+    //public $wsFacebookFeedPageId = NULL;
+    //public $wsFacebookFeedLocalFolder = NULL;
+    //public $wsFacebookFeedLocalFile = NULL;
+
+    public $settings = NULL;
+
 
     /**
      * Tries to get the feed from the facebook app and saves it to a json-file.
@@ -20,40 +25,51 @@ class Feed extends \TYPO3\CMS\Scheduler\Task\AbstractTask
     public function execute()
     {
 
-        // schmelzer, 2017-09-01
-        // Make paths relative to typo3 installation
+        // schmelzer, 2017-09-02
+        // Get settings: Initialize ConfigurationManager
+        // Get settings: Get all TypoScript (What a waste of resources)
+        // Get settings: Extract the Typoscript of this extension
+        $this->configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $this->settings = $extbaseFrameworkConfiguration['plugin.']['tx_wsfacebookfeed.']['settings.'];
+
+        // maxEntries
+        $this->settings['maxEntries'] = intval($this->settings['maxEntries']); // Clean
+        if ($this->settings['maxEntries'] <= 0) {
+            $this->settings['maxEntries'] = 10; // Defaultvalue
+        }
+
+
+        // schmelzer, 2017-09-02
+        // Use a temp dir, not a custom dir
+        // Still, it is stupid, to have to set the path here in the task and in the front end
         // https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/GlobalValues/Constants/Index.html
-        // PATH_site = /absolute/path/to/documentroot
 
         // Set absolute paths
-        $localFolder = PATH_site . DIRECTORY_SEPARATOR . $this->wsFacebookFeedLocalFolder;
-        $localFile = $localFolder . DIRECTORY_SEPARATOR . $this->wsFacebookFeedLocalFile;
-        $tempFolder = 'temp';
-        $localTempFolder = $localFolder . DIRECTORY_SEPARATOR . $tempFolder;
-        $localTempFile = $localTempFolder . DIRECTORY_SEPARATOR . $this->wsFacebookFeedLocalFile;
+        $localFolder = PATH_site . $this->settings['feedDirPath'];
+        $localFile = $localFolder . DIRECTORY_SEPARATOR . $this->settings['feedFilename'];
 
-        // Clean up duplicate DIRECTORY_SEPARATOR
+        $localTempFolder = $localFolder . DIRECTORY_SEPARATOR . 'temp';
+        $localTempFile = $localTempFolder . DIRECTORY_SEPARATOR . $this->settings['feedFilename'];
+
+        // Clean up duplicate slashes
         $localFolder = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localFolder);
         $localFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localFile);
         $localTempFolder = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localTempFolder);
         $localTempFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localTempFile);
 
-        // Do it twice
-        $localFolder = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localFolder);
-        $localFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localFile);
-        $localTempFolder = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localTempFolder);
-        $localTempFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $localTempFile);
 
-        /*
         // Debug paths
-        throw new \BadMethodCallException(
-            '$localFolder' . $localFolder . "\n" .
-            '$localFile' . $localFile . "\n" .
-            '$localTempFolder' . $localTempFolder . "\n" .
-            '$localTempFile' . $localTempFile . "\n"
-            , 2);
-        return FALSE;
-        */
+        if (0) {
+            throw new \BadMethodCallException (
+                '$this->settings = ' . print_r($this->settings, true) . "\n" .
+                '$localFolder = ' . $localFolder . "\n" .
+                '$localFile = ' . $localFile . "\n" .
+                '$localTempFolder = ' . $localTempFolder . "\n" .
+                '$localTempFile = ' . $localTempFile . "\n"
+                , 2);
+            return FALSE;
+        }
 
         $facebookGraphFields = array(
             'id',
@@ -71,8 +87,15 @@ class Feed extends \TYPO3\CMS\Scheduler\Task\AbstractTask
             'type'
         );
 
-        $facebookStreamUrl = 'https://graph.facebook.com/' . $this->wsFacebookFeedPageId . '/feed?fields=' . implode(',', $facebookGraphFields) . '&access_token=' . $this->wsFacebookFeedAppId . '|' . $this->wsFacebookFeedSecret . '&limit=10';
 
+        // Create graph URL
+        $facebookStreamUrl = '';
+        $facebookStreamUrl .= 'https://graph.facebook.com/' . $this->settings['pageName'];
+        $facebookStreamUrl .= '/feed?fields=' . implode(',', $facebookGraphFields);
+        $facebookStreamUrl .= '&access_token=' . $this->settings['pageId'] . '|' . $this->wsFacebookFeedSecret;
+        $facebookStreamUrl .= '&limit=' . $this->settings['maxEntries'];
+
+        // Query the graph
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,

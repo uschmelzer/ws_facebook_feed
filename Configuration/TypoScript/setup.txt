@@ -11,9 +11,27 @@ plugin.tx_wsfacebookfeed {
 		}
 	}
 	settings {
-		feed = {$plugin.tx_wsfacebookfeed.settings.feed}
+
+		##
+		## Path to feed.json
+		##
+		## NOT USED
+		## feed = {$plugin.tx_wsfacebookfeed.settings.feed}
+		## It's computed from these values
+		feedDirPath = {$plugin.tx_wsfacebookfeed.settings.feedDirPath}
+		feedFilename = {$plugin.tx_wsfacebookfeed.settings.feedFilename}
+
+		##
+		## Facebook page and facebook app
+		##
 		pageId = {$plugin.tx_wsfacebookfeed.settings.pageId}
 		pageName = {$plugin.tx_wsfacebookfeed.settings.pageName}
 		maxEntries = {$plugin.tx_wsfacebookfeed.settings.maxEntries}
+
+		##
+		## Hint: Facebook app secret will be inserted in the scheduler task, not here.
+		## Why? Avoid plaintext passwords in plaintext files.
+		##
+
 	}
 }

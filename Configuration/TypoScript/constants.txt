@@ -8,13 +8,28 @@ plugin.tx_wsfacebookfeed {
 		layoutRootPath = EXT:ws_facebook_feed/Resources/Private/Layouts/
 	}
 	settings {
+
+		##
+		## Path to feed.json
+		##
 		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=The local file where the feed is saved
-		feed =
+		feedDirPath = /typo3temp/tx_wsfacebookfeed
+		feedFilename = feed.json
+
+		##
+		## Facebook page and facebook app
+		##
 		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=Facebook app: App id
 		pageId = 0
 		# cat=plugin.tx_wsfacebookfeed/other; type=string; label=Facebook page: Name or id of the page
 		pageName =
 		# cat=plugin.tx_wsfacebookfeed/other; type=int+; label=Number of entries to display
 		maxEntries = 0
+
+		##
+		## Hint: Facebook app secret will be inserted in the scheduler task, not here.
+		## Why? Avoid plaintext passwords in plaintext files.
+		##
+
 	}
 }

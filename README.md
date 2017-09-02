@@ -2,8 +2,10 @@
 A fork of Typo3 extension ws_facebook_feed, v1.0
 
 # Changelog
-- Make paths to feed relative to PathSite
+- The fork is not compatible with v1.0, anymore.
+- Handle path to feed.json internally
+- Remove obsolete fields in task and fe plugin
 
 # Related
 - https://extensions.typo3.org/extension/ws_facebook_feed/
-- https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/GlobalValues/Constants/Index.html
+- https://github.com/uschmelzer/ws_facebook_feed

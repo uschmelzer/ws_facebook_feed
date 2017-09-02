@@ -12,42 +12,6 @@
 				<type>array</type>
 				<el>
 
-					<settings.override.feed>
-						<TCEforms>
-							<label>LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:plugin.facebook.flexform.sheets.settings.override.feed</label>
-							<config>
-								<type>input</type>
-								<size>30</size>
-								<default>/feed.json</default>
-								<eval>trim</eval>
-							</config>
-						</TCEforms>
-					</settings.override.feed>
-
-					<settings.override.pageId>
-						<TCEforms>
-							<label>LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:plugin.facebook.flexform.sheets.settings.override.pageId</label>
-							<config>
-								<type>input</type>
-								<size>30</size>
-								<default>0</default>
-								<eval>trim</eval>
-							</config>
-						</TCEforms>
-					</settings.override.pageId>
-
-					<settings.override.pageName>
-						<TCEforms>
-							<label>LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:plugin.facebook.flexform.sheets.settings.override.pageName</label>
-							<config>
-								<type>input</type>
-								<size>30</size>
-								<default></default>
-								<eval>trim</eval>
-							</config>
-						</TCEforms>
-					</settings.override.pageName>
-
 					<settings.override.maxEntries>
 						<TCEforms>
 							<label>LLL:EXT:ws_facebook_feed/Resources/Private/Language/locallang_db.xlf:plugin.facebook.flexform.sheets.settings.override.maxEntries</label>
