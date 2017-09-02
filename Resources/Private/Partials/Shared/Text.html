@@ -1,3 +1,7 @@
 <f:if condition="{feedEntry.text}">
-    <p>{feedEntry.text}</p>
+    <p>
+        <f:format.nl2br>
+            {feedEntry.text}
+        </f:format.nl2br>
+    </p>
 </f:if>
